@@ -1,23 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import StyleSheet from "./stylesheet";
+import ToDoList from "./todoapp";
+import Lifecycle from "./Lifecycle";
+import React, { useRef, useContext } from "react";
+import Parentref from "./ref/parentref";
+import Hero from "./errorboundary.js/hero";
+import ErrorBoundary from "./errorboundary.js/errorboundary";
+import HigherOrder from "./higherorder/higherorder";
+import appContext from "./appContext";
+import Childref from "./ref/childref";
+import Getrequest from "./getrequest";
+import Postrequest from "./postapi";
 
 function App() {
+  const inputRef = useRef();
+  const focustheinput = () => {
+    inputRef.current.focus();
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <Getrequest /> */}
+      <Postrequest />
+      <HigherOrder />
+      <appContext.Provider value={["monygupta"]}>
+        <Childref />
+      </appContext.Provider>
+      <ErrorBoundary>
+        <Hero heroName="shulbhi" />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <Hero heroName="mony" />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        {" "}
+        <Hero heroName="joker" />
+      </ErrorBoundary>
+
+      <Parentref />
+      <input ref={inputRef} />
+      <button onClick={focustheinput}>focusininput</button>
+      <StyleSheet primary={true} />
+      <ToDoList />
+      <Lifecycle />
     </div>
   );
 }
